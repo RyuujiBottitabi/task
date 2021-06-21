@@ -1,0 +1,26 @@
+version: "3"
+services:
+  php-apache:
+    build:
+      context: ./php-apache
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ./project:/var/www/html
+    networks:
+      - app_network
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      - app_network
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+volumes:
+  db_volume:
+networks:
+  app_network:
